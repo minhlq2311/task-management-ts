@@ -15,6 +15,12 @@ app.get('/tasks', async (req: Request, res: Response) => {
     res.json(tasks);
 });
 
+app.get('/tasks/:id', async (req:Request, res: Response) => {
+    const taskId = req.params.id;
+    const tasks = await Task.findOne({ _id: taskId, deleted: false });
+    res.json(tasks);
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
