@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "target": "ES6", // Cho phép biên dịch js sang ES6
+        "module": "commonjs", // Sử dụng module commonjs
+        "removeComments": true, // Loại bỏ các comment trong file js
+        "esModuleInterop": true, // Dùng được từ khóa import thay cho require
+    },
+}
