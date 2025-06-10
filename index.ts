@@ -1,7 +1,7 @@
-import express, {Express,Request,Response} from 'express';
+import express, {Express} from 'express';
 import * as database from './config/database';
 import dotenv from 'dotenv';
-import Task from './models/task.model';
+import mainRoutes from './api/v1/routes/index.route';
 
 dotenv.config();
 
@@ -10,16 +10,11 @@ database.connect();
 const app: Express = express();
 const PORT: number | string = process.env.PORT;
 
-app.get('/tasks', async (req: Request, res: Response) => {
-    const tasks = await Task.find({ deleted: false });
-    res.json(tasks);
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/tasks/:id', async (req:Request, res: Response) => {
-    const taskId = req.params.id;
-    const tasks = await Task.findOne({ _id: taskId, deleted: false });
-    res.json(tasks);
-});
+mainRoutes(app);
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
